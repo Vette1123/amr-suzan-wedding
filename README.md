@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Amr & Suzan — Katb El-Kitab
 
-## Getting Started
+An elegant, fully-animated single-page invitation website for Amr & Suzan's
+Katb El-Kitab on **Friday, June 12, 2026** at **El-Mosheer Tantawy Mosque**.
 
-First, run the development server:
+Built with care: a warm watercolor-and-gold aesthetic, a self-drawing gold
+arch, an Arabic Bismillah centerpiece, scroll-triggered motion on every
+section, a live countdown, and an RSVP call-to-action.
+
+## Tech stack
+
+- [Next.js 16](https://nextjs.org) (App Router) + TypeScript
+- [Tailwind CSS 4](https://tailwindcss.com)
+- [shadcn/ui](https://ui.shadcn.com) (button, card, carousel, dialog, separator)
+- [Motion](https://motion.dev) for animation
+- Fonts: Cormorant Garamond, EB Garamond, Tangerine, Amiri (Arabic)
+
+## Getting started
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Editing content
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+All wedding details (names, date, venue, RSVP link, story, verse) live in a
+single file: **`src/lib/wedding.ts`**. Edit there — nothing else needs to change.
 
-## Learn More
+## Adding real photos
 
-To learn more about Next.js, take a look at the following resources:
+The gallery (`src/components/sections/gallery.tsx`) uses tasteful watercolor
+placeholders. To use real photos:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Drop images into `public/gallery/` (e.g. `1.jpg`, `2.jpg`).
+2. In `gallery.tsx`, set the `src` field on each photo (e.g. `src: "/gallery/1.jpg"`).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Sections
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Hero (Bismillah + names) · Quran verse · Our Story · Countdown ·
+Event Details · Location & Map · Gallery · RSVP · Footer
