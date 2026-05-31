@@ -1,5 +1,5 @@
 import { Reveal } from "@/components/motion-primitives";
-import { FloralDivider } from "@/components/ornaments";
+import { AnimatedDivider } from "@/components/animated-divider";
 import { wedding } from "@/lib/wedding";
 
 export function Footer() {
@@ -13,9 +13,7 @@ export function Footer() {
         >
           {wedding.bismillah}
         </p>
-        <div className="my-8 flex justify-center">
-          <FloralDivider />
-        </div>
+        <AnimatedDivider className="my-8" />
         <p className="font-display text-3xl tracking-luxe text-gold-deep">
           {wedding.monogram}
         </p>

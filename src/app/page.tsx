@@ -1,3 +1,4 @@
+import { Intro } from "@/components/sections/intro";
 import { Hero } from "@/components/sections/hero";
 import { Verse } from "@/components/sections/verse";
 import { Story } from "@/components/sections/story";
@@ -11,6 +12,7 @@ import { Footer } from "@/components/sections/footer";
 export default function Home() {
   return (
     <main className="relative">
+      <Intro />
       <Hero />
       <Verse />
       <Story />

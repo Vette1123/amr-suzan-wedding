@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Reveal } from "@/components/motion-primitives";
-import { FloralDivider } from "@/components/ornaments";
+import { AnimatedDivider } from "@/components/animated-divider";
 import { wedding } from "@/lib/wedding";
 
 interface TimeLeft {
@@ -93,9 +93,7 @@ export function Countdown() {
           </div>
         </Reveal>
 
-        <Reveal delay={0.3} className="mt-12">
-          <FloralDivider />
-        </Reveal>
+        <AnimatedDivider className="mt-12" />
       </div>
     </section>
   );

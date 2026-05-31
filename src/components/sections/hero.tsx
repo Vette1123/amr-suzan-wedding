@@ -6,6 +6,33 @@ import { wedding } from "@/lib/wedding";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
+/** Reveals a name letter-by-letter with a gentle rise. */
+function AnimatedName({ text, delay }: { text: string; delay: number }) {
+  return (
+    <motion.h1
+      initial="hidden"
+      animate="show"
+      transition={{ staggerChildren: 0.05, delayChildren: delay }}
+      aria-label={text}
+      className="text-gradient-gold flex text-5xl font-light uppercase leading-none tracking-[0.18em] sm:text-7xl"
+    >
+      {text.split("").map((char, i) => (
+        <motion.span
+          key={`${char}-${i}`}
+          variants={{
+            hidden: { opacity: 0, y: 26, rotateX: -40 },
+            show: { opacity: 1, y: 0, rotateX: 0 },
+          }}
+          transition={{ duration: 0.8, ease: EASE }}
+          className="inline-block"
+        >
+          {char}
+        </motion.span>
+      ))}
+    </motion.h1>
+  );
+}
+
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
@@ -90,33 +117,19 @@ export function Hero() {
         </motion.p>
 
         {/* Names */}
-        <div className="mt-7 flex flex-col items-center">
-          <motion.h1
-            initial={{ opacity: 0, y: 18, letterSpacing: "0.4em" }}
-            animate={{ opacity: 1, y: 0, letterSpacing: "0.18em" }}
-            transition={{ duration: 1.3, ease: EASE, delay: 1.2 }}
-            className="text-gradient-gold text-5xl font-light uppercase leading-none sm:text-7xl"
-          >
-            {wedding.groom}
-          </motion.h1>
+        <div className="mt-7 flex flex-col items-center [perspective:600px]">
+          <AnimatedName text={wedding.groom} delay={1.2} />
 
           <motion.span
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, ease: EASE, delay: 1.6 }}
+            transition={{ duration: 1, ease: EASE, delay: 1.5 }}
             className="font-script my-1 text-5xl text-gold sm:text-6xl"
           >
             and
           </motion.span>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 18, letterSpacing: "0.4em" }}
-            animate={{ opacity: 1, y: 0, letterSpacing: "0.18em" }}
-            transition={{ duration: 1.3, ease: EASE, delay: 1.8 }}
-            className="text-gradient-gold text-5xl font-light uppercase leading-none sm:text-7xl"
-          >
-            {wedding.bride}
-          </motion.h1>
+          <AnimatedName text={wedding.bride} delay={1.7} />
         </div>
 
         {/* Invitation line + date */}

@@ -1,5 +1,6 @@
 import { MapPin, Navigation } from "lucide-react";
 import { Reveal } from "@/components/motion-primitives";
+import { SectionHeading } from "@/components/section-heading";
 import { Button } from "@/components/ui/button";
 import { wedding } from "@/lib/wedding";
 
@@ -7,12 +8,11 @@ export function Location() {
   return (
     <section className="relative px-6 py-28 sm:py-36">
       <div className="mx-auto max-w-5xl">
-        <Reveal className="mb-14 text-center">
-          <p className="text-xs uppercase tracking-[0.3em] text-gold-deep">
-            Find your way
-          </p>
-          <h2 className="mt-3 text-4xl text-ink sm:text-5xl">The Location</h2>
-        </Reveal>
+        <SectionHeading
+          label="Find your way"
+          title="The Location"
+          className="mb-14"
+        />
 
         <Reveal y={36}>
           <div className="overflow-hidden rounded-3xl border border-gold/25 bg-ivory/60 shadow-[0_20px_60px_rgba(138,109,59,0.12)]">

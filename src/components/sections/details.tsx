@@ -4,6 +4,7 @@ import {
   StaggerItem,
   Reveal,
 } from "@/components/motion-primitives";
+import { SectionHeading } from "@/components/section-heading";
 import { wedding } from "@/lib/wedding";
 
 const cards = [
@@ -28,12 +29,11 @@ export function Details() {
   return (
     <section className="relative px-6 py-28 sm:py-36">
       <div className="mx-auto max-w-5xl">
-        <Reveal className="mb-16 text-center">
-          <p className="text-xs uppercase tracking-[0.3em] text-gold-deep">
-            With joy, we invite you
-          </p>
-          <h2 className="mt-3 text-4xl text-ink sm:text-5xl">The Celebration</h2>
-        </Reveal>
+        <SectionHeading
+          label="With joy, we invite you"
+          title="The Celebration"
+          className="mb-16"
+        />
 
         <StaggerGroup className="grid gap-6 sm:grid-cols-3">
           {cards.map(({ icon: Icon, label, lines }) => (

@@ -1,5 +1,6 @@
 import { Reveal } from "@/components/motion-primitives";
-import { FloralDivider, Sprig } from "@/components/ornaments";
+import { AnimatedDivider } from "@/components/animated-divider";
+import { Sprig } from "@/components/ornaments";
 import { wedding } from "@/lib/wedding";
 
 export function Verse() {
@@ -20,9 +21,7 @@ export function Verse() {
           </p>
         </Reveal>
 
-        <Reveal delay={0.2} className="mt-8">
-          <FloralDivider />
-        </Reveal>
+        <AnimatedDivider className="mt-8" />
 
         <Reveal delay={0.3}>
           <p className="mt-8 max-w-xl text-balance font-display text-xl italic leading-relaxed text-ink sm:text-2xl">
