@@ -4,6 +4,9 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  /* Extra small-phone breakpoint (default Tailwind starts at sm=640px). */
+  --breakpoint-xs: 30rem;
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 

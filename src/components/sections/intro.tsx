@@ -5,6 +5,7 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { wedding } from "@/lib/wedding";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
+const HOLD_MS = 2000;
 
 export function Intro() {
   const reduce = useReducedMotion();
@@ -15,9 +16,8 @@ export function Intro() {
       setShow(false);
       return;
     }
-    // Lock scroll while the intro plays.
     document.body.style.overflow = "hidden";
-    const t = setTimeout(() => setShow(false), 2200);
+    const t = setTimeout(() => setShow(false), HOLD_MS);
     return () => {
       clearTimeout(t);
       document.body.style.overflow = "";
@@ -29,53 +29,49 @@ export function Intro() {
       {show && (
         <motion.div
           className="fixed inset-0 z-[70] flex items-center justify-center bg-cream"
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.8, ease: EASE }}
+          exit={{ opacity: 0, scale: 1.05 }}
+          transition={{ duration: 1, ease: EASE }}
           onAnimationComplete={() => {
             document.body.style.overflow = "";
           }}
         >
           {/* soft bloom behind */}
-          <div className="pointer-events-none absolute h-[36rem] w-[36rem] rounded-full bg-beige/30 blur-3xl" />
+          <motion.div
+            className="pointer-events-none absolute h-[34rem] w-[34rem] rounded-full bg-beige/25 blur-3xl"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.6, ease: EASE }}
+          />
 
           <motion.div
             className="relative flex flex-col items-center"
-            exit={{ y: -24, opacity: 0 }}
-            transition={{ duration: 0.7, ease: EASE }}
+            exit={{ y: -16, opacity: 0 }}
+            transition={{ duration: 0.8, ease: EASE }}
           >
-            <svg
-              viewBox="0 0 200 200"
-              className="absolute -z-0 h-48 w-48 text-gold/70"
-              fill="none"
-              aria-hidden
-            >
-              <motion.circle
-                cx="100"
-                cy="100"
-                r="86"
-                stroke="currentColor"
-                strokeWidth="1.2"
-                initial={{ pathLength: 0, rotate: -90 }}
-                animate={{ pathLength: 1 }}
-                transition={{ duration: 1.6, ease: EASE }}
-                style={{ transformOrigin: "center" }}
-              />
-            </svg>
-
+            {/* Monogram — soft focus-in */}
             <motion.span
-              initial={{ opacity: 0, scale: 0.85 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1, ease: EASE, delay: 0.4 }}
-              className="font-display text-5xl tracking-luxe text-gold-deep"
+              initial={{ opacity: 0, filter: "blur(12px)", letterSpacing: "0.6em" }}
+              animate={{ opacity: 1, filter: "blur(0px)", letterSpacing: "0.32em" }}
+              transition={{ duration: 1.3, ease: EASE }}
+              className="font-display pl-[0.32em] text-5xl font-medium text-gold-deep"
             >
               {wedding.monogram}
             </motion.span>
 
+            {/* Hairline rule that draws from center */}
             <motion.span
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 1 }}
-              className="font-script mt-2 text-3xl text-gold"
+              initial={{ scaleX: 0, opacity: 0 }}
+              animate={{ scaleX: 1, opacity: 1 }}
+              transition={{ duration: 1, ease: EASE, delay: 0.5 }}
+              className="mt-5 block h-px w-32 origin-center bg-gradient-to-r from-transparent via-gold to-transparent"
+            />
+
+            {/* Couple — fades up */}
+            <motion.span
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, ease: EASE, delay: 0.9 }}
+              className="font-script mt-4 text-4xl text-gold"
             >
               {wedding.couple}
             </motion.span>

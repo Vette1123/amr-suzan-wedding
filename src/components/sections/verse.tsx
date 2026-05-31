@@ -5,7 +5,7 @@ import { wedding } from "@/lib/wedding";
 
 export function Verse() {
   return (
-    <section className="relative px-6 py-28 sm:py-36">
+    <section id="celebration" className="relative px-6 py-28 sm:py-36">
       <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
         <Reveal>
           <Sprig className="mx-auto h-16 w-12 opacity-80" />

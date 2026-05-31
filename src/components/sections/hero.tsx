@@ -6,29 +6,17 @@ import { wedding } from "@/lib/wedding";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-/** Reveals a name letter-by-letter with a gentle rise. */
+/** Reveals a name with a soft rise. The gold gradient is on the same element
+ *  as the transform (no child spans) so the clipped text always renders. */
 function AnimatedName({ text, delay }: { text: string; delay: number }) {
   return (
     <motion.h1
-      initial="hidden"
-      animate="show"
-      transition={{ staggerChildren: 0.05, delayChildren: delay }}
-      aria-label={text}
-      className="text-gradient-gold flex text-5xl font-light uppercase leading-none tracking-[0.18em] sm:text-7xl"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1, ease: EASE, delay }}
+      className="text-gradient-gold text-[2.7rem] font-light uppercase leading-none tracking-[0.1em] sm:text-7xl sm:tracking-[0.18em]"
     >
-      {text.split("").map((char, i) => (
-        <motion.span
-          key={`${char}-${i}`}
-          variants={{
-            hidden: { opacity: 0, y: 26, rotateX: -40 },
-            show: { opacity: 1, y: 0, rotateX: 0 },
-          }}
-          transition={{ duration: 0.8, ease: EASE }}
-          className="inline-block"
-        >
-          {char}
-        </motion.span>
-      ))}
+      {text}
     </motion.h1>
   );
 }
@@ -49,57 +37,58 @@ export function Hero() {
   return (
     <section
       ref={ref}
-      className="relative flex min-h-[100svh] items-center justify-center overflow-hidden px-6"
+      className="relative flex min-h-[100svh] items-center justify-center overflow-hidden px-6 py-24"
     >
       {/* Watercolor blooms */}
       <motion.div
         style={{ y: bloomA }}
-        className="pointer-events-none absolute -left-24 -top-24 h-[28rem] w-[28rem] rounded-full bg-beige/40 blur-3xl"
+        className="pointer-events-none absolute -left-24 -top-24 h-80 w-80 rounded-full bg-beige/40 blur-3xl sm:h-[28rem] sm:w-[28rem]"
         aria-hidden
       />
       <motion.div
         style={{ y: bloomB }}
-        className="pointer-events-none absolute -bottom-32 -right-24 h-[32rem] w-[32rem] rounded-full bg-blush/50 blur-3xl"
+        className="pointer-events-none absolute -bottom-32 -right-24 h-80 w-80 rounded-full bg-blush/50 blur-3xl sm:h-[32rem] sm:w-[32rem]"
         aria-hidden
       />
 
       <motion.div
         style={{ y: contentY, opacity: contentOpacity }}
-        className="relative flex flex-col items-center text-center"
+        className="relative flex w-full max-w-xl flex-col items-center text-center"
       >
-        {/* Self-drawing gold arch */}
+        {/* Self-drawing gold arch — tall & narrow so it scales on phones */}
         <svg
-          viewBox="0 0 300 320"
-          className="absolute left-1/2 top-1/2 -z-10 h-[125%] w-auto -translate-x-1/2 -translate-y-[52%] text-gold/70"
+          viewBox="0 0 300 460"
+          preserveAspectRatio="xMidYMid meet"
+          className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-auto w-[clamp(280px,86vw,460px)] -translate-x-1/2 -translate-y-1/2 text-gold/60"
           fill="none"
           aria-hidden
         >
           <motion.path
-            d="M28 312V150C28 80 82 26 150 26s122 54 122 124v162"
+            d="M40 452V180C40 95 90 40 150 40s110 55 110 140v272"
             stroke="currentColor"
             strokeWidth="1.4"
             strokeLinecap="round"
             initial={{ pathLength: 0, opacity: 0 }}
             animate={{ pathLength: 1, opacity: 1 }}
-            transition={{ duration: 2.4, ease: EASE, delay: 0.2 }}
+            transition={{ duration: 2.2, ease: EASE, delay: 1.3 }}
           />
           <motion.path
-            d="M150 26c0-8 0-8 0-14"
+            d="M150 40v-16"
             stroke="currentColor"
             strokeWidth="1.4"
             strokeLinecap="round"
             initial={{ pathLength: 0 }}
             animate={{ pathLength: 1 }}
-            transition={{ duration: 0.5, ease: EASE, delay: 2.2 }}
+            transition={{ duration: 0.5, ease: EASE, delay: 3.2 }}
           />
         </svg>
 
         {/* Monogram */}
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: EASE, delay: 0.5 }}
-          className="font-display text-2xl tracking-luxe text-gold-deep"
+          initial={{ opacity: 0, y: 12, filter: "blur(6px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          transition={{ duration: 1.1, ease: EASE, delay: 1.8 }}
+          className="font-display text-xl tracking-luxe text-gold-deep sm:text-2xl"
         >
           {wedding.monogram}
         </motion.div>
@@ -110,59 +99,59 @@ export function Hero() {
           lang="ar"
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, ease: EASE, delay: 0.9 }}
-          className="font-arabic mt-6 text-2xl leading-relaxed text-gold-deep sm:text-3xl"
+          transition={{ duration: 1.2, ease: EASE, delay: 2.05 }}
+          className="font-arabic mt-5 text-xl leading-relaxed text-gold-deep sm:mt-6 sm:text-3xl"
         >
           {wedding.bismillah}
         </motion.p>
 
         {/* Names */}
-        <div className="mt-7 flex flex-col items-center [perspective:600px]">
-          <AnimatedName text={wedding.groom} delay={1.2} />
+        <div className="mt-6 flex flex-col items-center sm:mt-7">
+          <AnimatedName text={wedding.groom} delay={2.3} />
 
           <motion.span
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, ease: EASE, delay: 1.5 }}
-            className="font-script my-1 text-5xl text-gold sm:text-6xl"
+            transition={{ duration: 1, ease: EASE, delay: 2.55 }}
+            className="font-script my-1 text-4xl text-gold sm:text-6xl"
           >
             and
           </motion.span>
 
-          <AnimatedName text={wedding.bride} delay={1.7} />
+          <AnimatedName text={wedding.bride} delay={2.7} />
         </div>
 
         {/* Invitation line + date */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1.2, ease: EASE, delay: 2.3 }}
-          className="mt-8 flex flex-col items-center gap-4"
+          transition={{ duration: 1.2, ease: EASE, delay: 3.1 }}
+          className="mt-7 flex flex-col items-center gap-4 sm:mt-8"
         >
-          <p className="max-w-md text-balance text-base italic text-ink-soft sm:text-lg">
+          <p className="max-w-md text-balance text-sm italic text-ink-soft sm:text-lg">
             invite you to our{" "}
             <span className="font-display not-italic uppercase tracking-widest text-ink">
               Katb Ketab
             </span>
           </p>
-          <div className="flex items-center gap-4 text-ink">
-            <span className="h-px w-10 bg-gold/60" />
-            <span className="font-display text-lg tracking-wide">
+          <div className="flex items-center gap-3 text-ink sm:gap-4">
+            <span className="h-px w-8 bg-gold/60 sm:w-10" />
+            <span className="font-display text-base tracking-wide sm:text-lg">
               {wedding.date.weekday}, {wedding.date.month} {wedding.date.day}
             </span>
-            <span className="h-px w-10 bg-gold/60" />
+            <span className="h-px w-8 bg-gold/60 sm:w-10" />
           </div>
         </motion.div>
       </motion.div>
 
       {/* Scroll cue */}
       <motion.a
-        href="#story"
+        href="#celebration"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 3 }}
-        className="absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-gold-deep"
-        aria-label="Scroll to read our story"
+        transition={{ duration: 1, delay: 3.6 }}
+        className="absolute bottom-7 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-gold-deep"
+        aria-label="Scroll down"
       >
         <span className="text-[10px] uppercase tracking-[0.3em]">Scroll</span>
         <motion.span

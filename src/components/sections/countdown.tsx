@@ -27,7 +27,7 @@ function Unit({ value, label }: { value: number; label: string }) {
   const display = value.toString().padStart(2, "0");
   return (
     <div className="flex flex-col items-center">
-      <div className="relative flex h-20 w-20 items-center justify-center overflow-hidden rounded-xl border border-gold/30 bg-ivory/70 shadow-[0_2px_20px_rgba(138,109,59,0.08)] backdrop-blur-sm sm:h-28 sm:w-28">
+      <div className="relative flex h-16 w-16 items-center justify-center overflow-hidden rounded-xl border border-gold/30 bg-ivory/70 shadow-[0_2px_20px_rgba(138,109,59,0.08)] backdrop-blur-sm xs:h-20 xs:w-20 sm:h-28 sm:w-28">
         <AnimatePresence mode="popLayout" initial={false}>
           <motion.span
             key={display}
@@ -35,7 +35,7 @@ function Unit({ value, label }: { value: number; label: string }) {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: "-60%", opacity: 0 }}
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="font-display text-4xl font-light tabular-nums text-gold-deep sm:text-6xl"
+            className="font-display text-3xl font-light tabular-nums text-gold-deep xs:text-4xl sm:text-6xl"
           >
             {display}
           </motion.span>
@@ -79,7 +79,7 @@ export function Countdown() {
 
         <Reveal delay={0.15} className="mt-12" >
           <div
-            className="flex gap-3 sm:gap-6"
+            className="flex gap-2 xs:gap-3 sm:gap-6"
             // Reserve visual space before client time resolves
             style={{ visibility: time ? "visible" : "hidden" }}
           >
