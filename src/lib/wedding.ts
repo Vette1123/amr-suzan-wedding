@@ -4,7 +4,7 @@
  */
 
 export const wedding = {
-  // Update after deploying (or set NEXT_PUBLIC_SITE_URL). Used for SEO/OG tags.
+  // Live deployed URL (override per-env with NEXT_PUBLIC_SITE_URL). Used for SEO/OG tags.
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? "https://amr-suzan-wedding.vercel.app",
   monogram: "A & S",
   groom: "Amr",

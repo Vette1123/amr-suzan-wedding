@@ -28,10 +28,6 @@ function Unit({ value, label }: { value: number; label: string }) {
   return (
     <div className="flex flex-col items-center">
       <div className="relative flex h-20 w-20 items-center justify-center overflow-hidden rounded-xl border border-gold/30 bg-ivory/70 shadow-[0_2px_20px_rgba(138,109,59,0.08)] backdrop-blur-sm sm:h-28 sm:w-28">
-        <span
-          className="pointer-events-none absolute inset-x-0 top-1/2 h-px bg-gold/15"
-          aria-hidden
-        />
         <AnimatePresence mode="popLayout" initial={false}>
           <motion.span
             key={display}
