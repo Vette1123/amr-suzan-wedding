@@ -86,6 +86,9 @@
   }
   html {
     scroll-behavior: smooth;
+    /* Always reserve the scrollbar gutter so toggling scroll-lock (e.g. the
+       intro overlay) never shifts the centered layout. */
+    scrollbar-gutter: stable;
   }
   body {
     @apply bg-background text-foreground font-body antialiased;
